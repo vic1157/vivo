@@ -27,7 +27,7 @@ For example, a patient may receieve test results that indicates that their chole
 
 Let's say a patient understands the meaning of their results and has assessed various options that they can take to lower their cholesterol. If a physician suggests to perscribe medicine, the empowered patient can suggest 'natural' alternatives and see if they are viable before going on medication.  
 
-<ins> Personalization <ins>
+**Personalization**
 
 In addition, wearable and mobile technology has made it easier than ever for patients to keep tabs on their physical health. In addition to explaining the results of lab result, we also want to personalize each result assessesment (that should be taken to a physician) to prioritize specific action plans over others. 
 
