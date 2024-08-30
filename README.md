@@ -1,4 +1,4 @@
-# understand.md
+# Vivo
 
 Current: 
 
@@ -31,7 +31,7 @@ Let's say a patient understands the meaning of their results and has assessed va
 
 In addition, wearable and mobile technology has made it easier than ever for patients to keep tabs on their physical health. In addition to explaining the results of lab result, we also want to personalize each result assessesment (that should be taken to a physician) to prioritize specific action plans over others. 
 
-**understand.MD serves to:**
+**Vivo serves to:**
 
 1. Assess a patients lab result and explain it in a palatable way
 2. Leverage a patient's Apple Health information to personalize lab result explanations / next steps
