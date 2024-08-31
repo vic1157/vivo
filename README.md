@@ -40,9 +40,3 @@ In addition, wearable and mobile technology has made it easier than ever for pat
 ## Features
 
 <ins> High-Level Features of this project: </ins>
-
-1. Personalized survey - serves as the 'foundation' of a patient's health profile
-2. Optional Apple Health Integration
-3. Lab Result Assessment, Explanation and Action Plans (to take into consideration)
-4. AI Chatbot (allows patients to ask add'l questions about lab results)
-5. Notepad (patients can organize findings from explanations, action plans and chatbot responses )
