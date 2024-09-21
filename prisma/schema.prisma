@@ -21,6 +21,25 @@ model User {
   firstName       String?
   lastName        String?
   profileImageUrl String?
+  dateOfBirth     DateTime?
+  weight          Float?
+  height          Float?
+  gender          String?
+  image           String? // Make it optional if not always provided
+  lifestyleData   Json?
+  medicationData  Json?
+  mood            String?   // Happy, Sad, Neutral, etc.
+  sleepQuality    String?   // Good, Bad, Average, etc.
+  stressLevel     String?   // Not Stressed, Slightly, Moderately, Highly, etc.
+  happinessRating Int?      // Scale of 1-10
+  healthGoals     String[]  // Store selected health goals
+  lastPhysicalExam             DateTime?  // When was their last physical exam
+  labWorkFrequency             String?    // How often lab work is done
+  primaryCarePhysician          Boolean?   // If they have a primary care physician
+  comfortLevelWithProviders    Int?       // On a scale of 1-10
+  usesFitnessTrackingTech        Boolean?  // Do they use any fitness tracking devices or apps
+  willingToConnectHealthData     Boolean?  // Are they willing to connect health data (e.g., Apple Health)
+  comfortWithHealthTech          Int?      // Comfort level with technology for health management
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
