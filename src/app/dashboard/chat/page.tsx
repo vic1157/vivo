@@ -1,18 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { FiSettings } from 'react-icons/fi';
-import {
-  UploadIcon,
-  HomeIcon,
-  LabReportIcon,
-  NotesIcon,
-  ChatIcon,
-  AccountIcon,
-  SettingsIcon,
-} from "@/components/icons/Icons";
+import Sidebar from "@/components/dashboard/Sidebar"; // Import your Sidebar component
 
 interface Chat {
   id: string;
@@ -27,87 +17,6 @@ interface Note {
   content: string;
   date: string;
 }
-
-interface SidebarItemProps {
-  href: string;
-  icon: React.ReactNode;
-  label: string;
-  isActive: boolean;
-}
-
-const SidebarItem: React.FC<SidebarItemProps> = ({ href, icon, label, isActive }) => {
-  return (
-    <Link href={href}>
-      <div
-        className={`flex flex-col items-center cursor-pointer space-y-1 ${
-          isActive ? "text-blue-500" : "text-gray-400"
-        }`}
-      >
-        <div
-          className={`${
-            isActive ? "bg-blue-500 p-2 rounded-lg" : "p-2"
-          } transition-all`}
-        >
-          {icon}
-        </div>
-        <span className="text-xs">{label}</span>
-      </div>
-    </Link>
-  );
-};
-
-const Sidebar: React.FC = () => {
-  const pathname = usePathname();
-
-  return (
-    <div className="flex flex-col h-screen bg-[#F1F5F9] text-black border-r-2 shadow-lg w-20">
-      <div className="flex flex-col space-y-8 pt-10 items-center">
-        <SidebarItem
-          href="/dashboard/upload"
-          icon={<UploadIcon className="w-8 h-8" />}
-          label="Upload"
-          isActive={pathname === "/dashboard/upload"}
-        />
-        <SidebarItem
-          href="/dashboard"
-          icon={<HomeIcon className="w-8 h-8" />}
-          label="Home"
-          isActive={pathname === "/dashboard"}
-        />
-        <SidebarItem
-          href="/dashboard/lab-report"
-          icon={<LabReportIcon className="w-8 h-8" />}
-          label="Lab Report"
-          isActive={pathname === "/dashboard/lab-report"}
-        />
-        <SidebarItem
-          href="/dashboard/notes"
-          icon={<NotesIcon className="w-8 h-8" />}
-          label="Notes"
-          isActive={pathname === "/dashboard/notes"}
-        />
-        <SidebarItem
-          href="/chat"
-          icon={<ChatIcon className="w-8 h-8" />}
-          label="Chat"
-          isActive={pathname === "/chat"}
-        />
-        <SidebarItem
-          href="/account"
-          icon={<AccountIcon className="w-8 h-8" />}
-          label="Account"
-          isActive={pathname === "/account"}
-        />
-        <SidebarItem
-          href="/settings"
-          icon={<SettingsIcon className="w-8 h-8" />}
-          label="Settings"
-          isActive={pathname === "/settings"}
-        />
-      </div>
-    </div>
-  );
-};
 
 const ChatCard: React.FC<{ chat: Chat }> = ({ chat }) => (
   <div className="bg-blue-100 rounded-lg p-4 mb-4">
@@ -152,7 +61,10 @@ const MyChats: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
       <Sidebar />
+
+      {/* Main content */}
       <main className="flex-1 p-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-indigo-900">My Chats</h1>
@@ -160,10 +72,12 @@ const MyChats: React.FC = () => {
         </div>
         <p className="text-sm text-gray-500 mb-4">09/24/24</p>
         
+        {/* Chats section */}
         {chats.map(chat => (
           <ChatCard key={chat.id} chat={chat} />
         ))}
 
+        {/* Saved chats */}
         <h2 className="text-xl font-semibold text-indigo-900 mt-8 mb-4">Saved Chats</h2>
         <div className="grid grid-cols-4 gap-4">
           {savedChats.map(note => (

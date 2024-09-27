@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Sidebar from "@/components/dashboard/Sidebar";
 import {
   UploadIcon,
   HomeIcon,
@@ -82,52 +83,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-20 bg-[#F1F5F9] text-black border-r-2 shadow-lg">
-        <nav className="flex flex-col items-center py-4 space-y-8">
-          <SidebarItem
-            href="/dashboard/upload"
-            icon={<UploadIcon className="w-8 h-8" />}
-            label="Upload"
-            isActive={pathname === "/dashboard/upload"}
-          />
-          <SidebarItem
-            href="/dashboard"
-            icon={<HomeIcon className="w-8 h-8" />}
-            label="Home"
-            isActive={pathname === "/dashboard"}
-          />
-          <SidebarItem
-            href="/lab-report"
-            icon={<LabReportIcon className="w-8 h-8" />}
-            label="Lab Report"
-            isActive={pathname === "/lab-report"}
-          />
-          <SidebarItem
-            href="/dashboard/notes"
-            icon={<NotesIcon className="w-8 h-8" />}
-            label="Notes"
-            isActive={pathname === "/dashboard/notes"}
-          />
-          <SidebarItem
-            href="/chat"
-            icon={<ChatIcon className="w-8 h-8" />}
-            label="Chat"
-            isActive={pathname === "/chat"}
-          />
-          <SidebarItem
-            href="/account"
-            icon={<AccountIcon className="w-8 h-8" />}
-            label="Account"
-            isActive={pathname === "/account"}
-          />
-          <SidebarItem
-            href="/settings"
-            icon={<SettingsIcon className="w-8 h-8" />}
-            label="Settings"
-            isActive={pathname === "/settings"}
-          />
-        </nav>
-      </aside>
+      <Sidebar />
 
       {/* Main content */}
       <main className="flex-1 p-8">

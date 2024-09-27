@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Sidebar from "@/components/dashboard/Sidebar"; 
 import {
   UploadIcon,
   HomeIcon,
@@ -13,6 +14,7 @@ import {
   SettingsIcon,
 } from "@/components/icons/Icons";
 
+// Sidebar Item Component
 interface SidebarItemProps {
   href: string;
   icon: React.ReactNode;
@@ -41,59 +43,8 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ href, icon, label, isActive }
   );
 };
 
-const Sidebar: React.FC = () => {
-  const pathname = usePathname();
 
-  return (
-    <div className="flex flex-col h-screen bg-[#F1F5F9] text-black border-r-2 shadow-lg w-20">
-      <div className="flex flex-col space-y-8 pt-10 items-center">
-        <SidebarItem
-          href="/dashboard/upload"
-          icon={<UploadIcon className="w-8 h-8" />}
-          label="Upload"
-          isActive={pathname === "/dashboard/upload"}
-        />
-        <SidebarItem
-          href="/dashboard"
-          icon={<HomeIcon className="w-8 h-8" />}
-          label="Home"
-          isActive={pathname === "/dashboard"}
-        />
-        <SidebarItem
-          href="/dashboard/lab-report"
-          icon={<LabReportIcon className="w-8 h-8" />}
-          label="Lab Report"
-          isActive={pathname === "/dashboard/lab-report"}
-        />
-        <SidebarItem
-          href="/dashboard/notes"
-          icon={<NotesIcon className="w-8 h-8" />}
-          label="Notes"
-          isActive={pathname === "/dashboard/notes"}
-        />
-        <SidebarItem
-          href="/chat"
-          icon={<ChatIcon className="w-8 h-8" />}
-          label="Chat"
-          isActive={pathname === "/chat"}
-        />
-        <SidebarItem
-          href="/account"
-          icon={<AccountIcon className="w-8 h-8" />}
-          label="Account"
-          isActive={pathname === "/account"}
-        />
-        <SidebarItem
-          href="/settings"
-          icon={<SettingsIcon className="w-8 h-8" />}
-          label="Settings"
-          isActive={pathname === "/settings"}
-        />
-      </div>
-    </div>
-  );
-};
-
+// UserSettings Component
 interface UserInfo {
   name: string;
   email: string;
@@ -126,8 +77,11 @@ const UserSettings: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-white text-black overflow-hidden">
+      {/* Sidebar Component */}
       <Sidebar />
+      
+      {/* Main Content */}
       <main className="flex-1 p-8 overflow-y-auto">
         <h1 className="text-3xl font-bold text-indigo-900 mb-6">User Settings</h1>
         
@@ -214,7 +168,7 @@ const UserSettings: React.FC = () => {
             Delete My Account
           </button>
           <p className="text-sm text-gray-600 mt-2">
-            Deleting your account will erase all the information uploaded unto vivo :(
+            Deleting your account will erase all the information uploaded to vivo :(
           </p>
         </div>
       </main>
