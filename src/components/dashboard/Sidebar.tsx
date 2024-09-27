@@ -33,10 +33,10 @@ const Sidebar = () => {
           isActive={pathname === "/dashboard"}
         />
         <SidebarItem
-          href="/lab-report"
+          href="/dashboard/lab-report"
           icon={<LabReportIcon className="w-8 h-8" />}
           label="Lab Report"
-          isActive={pathname === "/lab-report"}
+          isActive={pathname === "/dashboard/lab-report"}
         />
         <SidebarItem
           href="/dashboard/notes"
@@ -45,22 +45,22 @@ const Sidebar = () => {
           isActive={pathname === "/dashboard/notes"}
         />
         <SidebarItem
-          href="/chat"
+          href="/dashboard/chat"
           icon={<ChatIcon className="w-8 h-8" />}
           label="Chat"
-          isActive={pathname === "/chat"}
+          isActive={pathname === "/dashboard/chat"}
         />
         <SidebarItem
-          href="/account"
+          href="/dashboard/account"
           icon={<AccountIcon className="w-8 h-8" />}
           label="Account"
-          isActive={pathname === "/account"}
+          isActive={pathname === "/dashboard/account"}
         />
         <SidebarItem
-          href="/settings"
+          href="/dashboard/settings"
           icon={<SettingsIcon className="w-8 h-8" />}
           label="Settings"
-          isActive={pathname === "/settings"}
+          isActive={pathname === "/dashboard/settings"}
         />
       </div>
     </div>
