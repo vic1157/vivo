@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-
-export default function DashboardTestPage() {
-  return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold">Dashboard Test Page</h1>
-      <p>If you can see this, routing to dashboard pages is working correctly.</p>
-    </div>
-  );
-}
-=======
 'use client';
 
 import React, { useState, useEffect } from "react";
@@ -178,4 +166,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
->>>>>>> 623af3e4ec66a4dc99e51f9f80944fa3d168893e
