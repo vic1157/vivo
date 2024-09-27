@@ -7,7 +7,7 @@ export default async function HomePage() {
   const user = await currentUser(); // Fetch the current user, returns null if not authenticated
 
   return (
-    <div className="w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 flex justify-center items-center relative">
+    <div className="w-screen h-screen bg-gradient-to-r from-[#5efce8] to-[#736efe] flex justify-center items-center relative">
       
       {/* Navbar */}
       <Navbar />
@@ -17,7 +17,7 @@ export default async function HomePage() {
         
         {/* Left Section */}
         <div className="flex flex-col justify-center space-y-6">
-          <h1 className="text-[150px] font-['Akaya Kanadaka'] text-[#233236]">
+          <h1 className="text-[150px] font-['Poppins'] text-[#233236]">
             Vivo
           </h1>
           
@@ -44,7 +44,7 @@ export default async function HomePage() {
         {/* Right Section: Placeholder for Image */}
         <div className="w-[500px] h-[500px] relative">
           <Image
-            src="/icons/doctorpic.svg" // Update this path to your image
+            src="/icons/sigup.png" // Update this path to your image
             alt="Person interacting with health data"
             width={500}
             height={500}

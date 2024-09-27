@@ -1,10 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import Sidebar from "@/components/dashboard/Sidebar"; // Assuming the sidebar component is in this location
+import Sidebar from "@/components/dashboard/Sidebar";
 
-// NoteCard Component
-const NoteCard = ({ note, onClick }: { note: any, onClick: any }) => {
+interface Note {
+  subject: string;
+  content: string;
+  date: string;
+  preview: string;
+}
+
+const NoteCard = ({ note, onClick }: { note: Note; onClick: () => void }) => {
   return (
     <div
       onClick={onClick}
@@ -17,23 +23,15 @@ const NoteCard = ({ note, onClick }: { note: any, onClick: any }) => {
   );
 };
 
-// NotesPage Component
 const NotesPage = () => {
-  const [notes, setNotes] = useState<
-    { subject: string; content: string; date: string; preview: string }[]
-  >([]);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [noteSubject, setNoteSubject] = useState("");
   const [noteContent, setNoteContent] = useState("");
-  const [expandedNote, setExpandedNote] = useState<{
-    subject: string;
-    content: string;
-    date: string;
-    preview: string;
-  } | null>(null);
+  const [expandedNote, setExpandedNote] = useState<Note | null>(null);
 
   const handleSaveNote = () => {
     if (noteSubject && noteContent) {
-      const newNote = {
+      const newNote: Note = {
         subject: noteSubject,
         content: noteContent,
         date: new Date().toLocaleDateString(),
@@ -72,20 +70,23 @@ const NotesPage = () => {
 
   return (
     <div className="flex h-screen">
-      <Sidebar /> {/* Adding the Sidebar component */}
+      <Sidebar />
       <div className="p-6 bg-indigo-50 flex-grow">
-        {/* Main Note Section */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-10">
           <h2 className="text-3xl font-bold text-violet-950 mb-6">My notes</h2>
           <div className="mb-6">
+            <label htmlFor="note-subject" className="sr-only">Note Subject</label>
             <input
+              id="note-subject"
               type="text"
               value={noteSubject}
               onChange={(e) => setNoteSubject(e.target.value)}
               placeholder="Enter subject"
               className="w-full p-3 text-xl rounded-lg border-2 mb-4"
             />
+            <label htmlFor="note-content" className="sr-only">Note Content</label>
             <textarea
+              id="note-content"
               value={noteContent}
               onChange={(e) => setNoteContent(e.target.value)}
               placeholder="Type your note here..."
@@ -101,7 +102,6 @@ const NotesPage = () => {
           </button>
         </div>
 
-        {/* Saved Notes Section */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold text-violet-950 mb-6">Saved Notes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -115,26 +115,31 @@ const NotesPage = () => {
           </div>
         </div>
 
-        {/* Expanded Note Section */}
         {expandedNote && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
               <h3 className="text-2xl font-bold text-violet-950 mb-4">
+                <label htmlFor="expanded-subject" className="sr-only">Note Subject</label>
                 <input
+                  id="expanded-subject"
                   className="text-xl w-full p-2 border-2 rounded-lg"
                   value={expandedNote.subject}
                   onChange={(e) =>
                     setExpandedNote({ ...expandedNote, subject: e.target.value })
                   }
+                  placeholder="Enter subject"
                 />
               </h3>
+              <label htmlFor="expanded-content" className="sr-only">Note Content</label>
               <textarea
+                id="expanded-content"
                 className="w-full p-3 border-2 rounded-lg"
                 value={expandedNote.content}
                 rows={8}
                 onChange={(e) =>
                   setExpandedNote({ ...expandedNote, content: e.target.value })
                 }
+                placeholder="Type your note here..."
               />
               <div className="mt-4 flex justify-between">
                 <button
