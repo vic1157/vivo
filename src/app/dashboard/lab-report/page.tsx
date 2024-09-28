@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/dashboard/Sidebar";
+import Navbar from "@/components/dashboard/DashboardNavbar"
 import {
   UploadIcon,
   HomeIcon,
@@ -83,6 +84,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
+      <Navbar />
       <Sidebar />
 
       {/* Main content */}

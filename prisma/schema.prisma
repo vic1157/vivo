@@ -40,6 +40,20 @@ model User {
   usesFitnessTrackingTech        Boolean?  // Do they use any fitness tracking devices or apps
   willingToConnectHealthData     Boolean?  // Are they willing to connect health data (e.g., Apple Health)
   comfortWithHealthTech          Int?      // Comfort level with technology for health management
+  notes     Note[]  @relation("UserNotes") // Relation to Note model
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Note {
+  id      String   @id @default(cuid()) @map("_id")
+  subject String
+  content String
+  date    String
+  preview String
+  userId  String
+  user    User     @relation("UserNotes", fields: [userId], references: [id]) // Inverse relation to User
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

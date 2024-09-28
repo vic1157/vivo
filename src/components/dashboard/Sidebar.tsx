@@ -18,8 +18,15 @@ const Sidebar = () => {
   const pathname = usePathname(); // Get the current route
 
   return (
-    <div className="flex flex-col h-screen bg-[#F1F5F9] text-black border-r-2 shadow-lg">
-      <div className="flex flex-col space-y-8 pt-10 items-center">
+    <div className="flex flex-col h-screen w-[115px] bg-white text-black border-r-2 shadow-lg">
+      {/* Logo Section */}
+      <div className="flex flex-col items-center justify-center mt-4">
+        <div className="mb-14">
+        </div>
+      </div>
+
+      {/* Sidebar Items */}
+      <div className="flex flex-col space-y-10 items-center mt-8">
         <SidebarItem
           href="/dashboard/upload"
           icon={<UploadIcon className="w-8 h-8" />}
@@ -56,6 +63,10 @@ const Sidebar = () => {
           label="Account"
           isActive={pathname === "/dashboard/account"}
         />
+      </div>
+
+      {/* Settings icon at the bottom */}
+      <div className="mt-auto mb-4">
         <SidebarItem
           href="/dashboard/settings"
           icon={<SettingsIcon className="w-8 h-8" />}
@@ -83,11 +94,7 @@ const SidebarItem = ({ href, icon, label, isActive }: SidebarItemProps) => {
           isActive ? "text-blue-500" : "text-gray-400"
         }`}
       >
-        <div
-          className={`${
-            isActive ? "bg-blue-500 p-2 rounded-lg" : "p-2"
-          } transition-all`}
-        >
+        <div className={`transition-all ${isActive ? "animate-glow" : ""}`}>
           {icon}
         </div>
         <span className="text-xs">{label}</span>

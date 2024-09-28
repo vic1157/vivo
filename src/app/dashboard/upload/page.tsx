@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Correct import for App Router
 import { FaFileUpload } from "react-icons/fa";
 import Sidebar from "@/components/dashboard/Sidebar";
+import Navbar from "@/components/dashboard/DashboardNavbar"
 import Image from "next/image";
 
 const UploadPage = () => {
@@ -36,7 +37,9 @@ const UploadPage = () => {
   return (
     <div className="flex">
       {/* Sidebar */}
+      <Navbar />
       <Sidebar />
+      
 
       {/* Main Content */}
       <div className="flex-1 flex min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">

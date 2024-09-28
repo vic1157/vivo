@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { FiSettings } from 'react-icons/fi';
 import Sidebar from "@/components/dashboard/Sidebar"; // Import your Sidebar component
+import Navbar from "@/components/dashboard/DashboardNavbar"
 
 interface Chat {
   id: string;
@@ -62,13 +63,13 @@ const MyChats: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
+      <Navbar />
       <Sidebar />
 
       {/* Main content */}
       <main className="flex-1 p-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-indigo-900">My Chats</h1>
-          <FiSettings className="text-gray-500" size={24} />
         </div>
         <p className="text-sm text-gray-500 mb-4">09/24/24</p>
         

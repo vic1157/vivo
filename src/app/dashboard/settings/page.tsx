@@ -3,7 +3,9 @@
 import React, { useState } from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Sidebar from "@/components/dashboard/Sidebar"; 
+import { useUser } from "@clerk/nextjs"; // Import Clerk's useUser hook
+import Sidebar from "@/components/dashboard/Sidebar";
+import Navbar from "@/components/dashboard/DashboardNavbar";
 import {
   UploadIcon,
   HomeIcon,
@@ -30,11 +32,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ href, icon, label, isActive }
           isActive ? "text-blue-500" : "text-gray-400"
         }`}
       >
-        <div
-          className={`${
-            isActive ? "bg-blue-500 p-2 rounded-lg" : "p-2"
-          } transition-all`}
-        >
+        <div className={`transition-all ${isActive ? "animate-glow" : ""}`}>
           {icon}
         </div>
         <span className="text-xs">{label}</span>
@@ -43,18 +41,9 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ href, icon, label, isActive }
   );
 };
 
-
 // UserSettings Component
-interface UserInfo {
-  name: string;
-  email: string;
-}
-
 const UserSettings: React.FC = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    name: 'Anais Lemon',
-    email: 'anaislemon@gmail.com'
-  });
+  const { user } = useUser(); // Clerk's useUser hook to access authenticated user details
   const [newEmail, setNewEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -79,6 +68,7 @@ const UserSettings: React.FC = () => {
   return (
     <div className="flex h-screen bg-white text-black overflow-hidden">
       {/* Sidebar Component */}
+      <Navbar />
       <Sidebar />
       
       {/* Main Content */}
@@ -90,11 +80,11 @@ const UserSettings: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-gray-600">Name</p>
-              <p className="font-medium">{userInfo.name}</p>
+              <p className="font-medium text-black">{user?.fullName || "Anonymous User"}</p> {/* Fetching name from Clerk */}
             </div>
             <div>
               <p className="text-gray-600">Email</p>
-              <p className="font-medium">{userInfo.email}</p>
+              <p className="font-medium text-black">{user?.emailAddresses[0]?.emailAddress || "No Email"}</p> {/* Fetching email from Clerk */}
             </div>
           </div>
         </div>
@@ -108,7 +98,7 @@ const UserSettings: React.FC = () => {
                 type="email"
                 id="oldEmail"
                 className="w-full p-2 border rounded"
-                value={userInfo.email}
+                value={user?.emailAddresses[0]?.emailAddress || ""}
                 readOnly
               />
             </div>
@@ -168,7 +158,7 @@ const UserSettings: React.FC = () => {
             Delete My Account
           </button>
           <p className="text-sm text-gray-600 mt-2">
-            Deleting your account will erase all the information uploaded to vivo :(
+            Deleting your account will erase all the information uploaded to Vivo :(
           </p>
         </div>
       </main>

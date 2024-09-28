@@ -1,20 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useUser } from '@clerk/nextjs'; // Clerk's useUser hook
 import Sidebar from "@/components/dashboard/Sidebar"; // Assuming you have this Sidebar component
-import { usePathname } from "next/navigation";
-import { UploadIcon, HomeIcon, LabReportIcon, NotesIcon, ChatIcon, AccountIcon, SettingsIcon } from "@/components/icons/Icons";
-
-interface UserInfo {
-  name: string;
-  email: string;
-}
+import Navbar from "@/components/dashboard/DashboardNavbar";
 
 const UserSettings: React.FC = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    name: 'Anais Lemon',
-    email: 'anaislemon@gmail.com'
-  });
+  const { user } = useUser(); // Fetch user details using Clerk
   const [newEmail, setNewEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -23,7 +15,6 @@ const UserSettings: React.FC = () => {
     e.preventDefault();
     console.log('Changing email to:', newEmail);
     // Here, implement the logic for changing email.
-    setUserInfo((prev) => ({ ...prev, email: newEmail }));
     setNewEmail('');
   };
 
@@ -43,33 +34,34 @@ const UserSettings: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
+      <Navbar />
       <Sidebar />
 
       {/* Main Content */}
       <main className="flex-1 p-8 overflow-y-auto">
-        <h1 className="text-3xl font-bold text-indigo-900 mb-6">User Settings</h1>
+        <h1 className="text-3xl font-bold text-black mb-6">User Settings</h1>
 
         {/* User Information */}
         <div className="bg-white rounded-lg p-6 mb-6 shadow">
-          <h2 className="text-xl font-semibold mb-4">User Information</h2>
+          <h2 className="text-xl font-semibold mb-4 text-black">User Information</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-gray-600">Name</p>
-              <p className="font-medium">{userInfo.name}</p>
+              <p className="text-black">Name</p>
+              <p className="font-medium text-black">{user?.fullName || 'Anonymous User'}</p> {/* Fetching name from Clerk */}
             </div>
             <div>
-              <p className="text-gray-600">Email</p>
-              <p className="font-medium">{userInfo.email}</p>
+              <p className="text-black">Email</p>
+              <p className="font-medium text-black">{user?.emailAddresses[0]?.emailAddress || 'No Email'}</p> {/* Fetching email from Clerk */}
             </div>
           </div>
         </div>
 
         {/* Change Email Section */}
         <div className="bg-blue-50 rounded-lg p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">Change Email</h2>
+          <h2 className="text-xl font-semibold mb-4 text-black">Change Email</h2>
           <form onSubmit={handleChangeEmail}>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="newEmail">New Email</label>
+              <label className="block text-black mb-2" htmlFor="newEmail">New Email</label>
               <input
                 type="email"
                 id="newEmail"
@@ -87,10 +79,10 @@ const UserSettings: React.FC = () => {
 
         {/* Change Password Section */}
         <div className="bg-blue-50 rounded-lg p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">Change Password</h2>
+          <h2 className="text-xl font-semibold mb-4 text-black">Change Password</h2>
           <form onSubmit={handleChangePassword}>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="oldPassword">Old Password</label>
+              <label className="block text-black mb-2" htmlFor="oldPassword">Old Password</label>
               <input
                 type="password"
                 id="oldPassword"
@@ -101,7 +93,7 @@ const UserSettings: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="newPassword">New Password</label>
+              <label className="block text-black mb-2" htmlFor="newPassword">New Password</label>
               <input
                 type="password"
                 id="newPassword"
