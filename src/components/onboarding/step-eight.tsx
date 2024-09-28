@@ -1,37 +1,55 @@
 "use client";
 
 import React from 'react';
-import Confetti from 'react-confetti'; // If you haven't installed it, run: npm install react-confetti
-import { useWindowSize } from 'react-use'; // Helps to handle screen size for confetti
 import { Button } from '@/components/ui/button'; // Assuming you have a Button component from your UI library
+import { motion } from 'framer-motion';
 
 const StepEight = () => {
-  const { width, height } = useWindowSize(); // Confetti adapts to the window size
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-800 to-black">
-      {/* Confetti Animation */}
-      <Confetti width={width} height={height} />
-
+    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-indigo-700">
       {/* Congratulations Message */}
-      <h1 className="text-4xl font-bold text-white mb-6">
+      <motion.h1
+        className="text-5xl font-extrabold text-white mb-6 relative z-10"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+      >
         Congratulations! 🎉
-      </h1>
+      </motion.h1>
 
-      <p className="text-lg text-white mb-8">
-        You have successfully completed the onboarding process!
-      </p>
+      <motion.p
+        className="text-xl text-gray-100 mb-8 relative z-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+      >
+        You’ve successfully completed the onboarding process!
+      </motion.p>
 
       {/* Button to Go to Dashboard */}
-      <Button
-        onClick={() => window.location.href = '/dashboard'}
-        className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-md"
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
+        className="relative z-10"
       >
-        Go to Dashboard
-      </Button>
+        <Button
+          onClick={() => window.location.href = '/dashboard'}
+          className="bg-white text-indigo-700 px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-indigo-100 hover:shadow-xl transition-all duration-300 ease-in-out"
+        >
+          Go to Dashboard
+        </Button>
+      </motion.div>
     </div>
   );
 };
 
 export default StepEight;
+
+
+
+
+
+
+
 

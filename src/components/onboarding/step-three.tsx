@@ -18,7 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowRightIcon, LoaderIcon } from "lucide-react";
-import { cn } from "@/lib/cn";
 
 interface StepThreeProps {
     nextStep: () => void;
@@ -59,7 +58,7 @@ const StepThree = ({ nextStep }: StepThreeProps) => {
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="flex flex-col gap-y-6 w-full h-full relative"
+                    className="flex flex-col gap-y-6 w-full h-full"
                 >
                     {/* Medication Name */}
                     <FormField
@@ -67,12 +66,13 @@ const StepThree = ({ nextStep }: StepThreeProps) => {
                         name="medicationName"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel htmlFor="medicationName">Medication Name</FormLabel>
+                                <FormLabel className="text-black text-lg font-semibold mb-2">Medication Name</FormLabel>
                                 <Input
                                     {...field}
                                     id="medicationName"
                                     disabled={isPending}
                                     placeholder="Ex: Paracetamol"
+                                    className="w-full p-4 bg-gray-100 text-black border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                 />
                                 <FormMessage />
                             </FormItem>
@@ -85,12 +85,13 @@ const StepThree = ({ nextStep }: StepThreeProps) => {
                         name="dosage"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel htmlFor="dosage">Dosage</FormLabel>
+                                <FormLabel className="text-black text-lg font-semibold mb-2">Dosage</FormLabel>
                                 <Input
                                     {...field}
                                     id="dosage"
                                     disabled={isPending}
                                     placeholder="Ex: 500mg"
+                                    className="w-full p-4 bg-gray-100 text-black border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                 />
                                 <FormMessage />
                             </FormItem>
@@ -103,12 +104,12 @@ const StepThree = ({ nextStep }: StepThreeProps) => {
                         name="frequency"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel htmlFor="frequency">Frequency</FormLabel>
+                                <FormLabel className="text-black text-lg font-semibold mb-2">Frequency</FormLabel>
                                 <Select
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}
                                 >
-                                    <SelectTrigger>
+                                    <SelectTrigger className="w-full p-4 bg-gray-100 text-black border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
                                         <SelectValue placeholder="Select Frequency" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -132,12 +133,12 @@ const StepThree = ({ nextStep }: StepThreeProps) => {
                         name="adherence"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel htmlFor="adherence">Adherence</FormLabel>
+                                <FormLabel className="text-black text-lg font-semibold mb-2">Adherence</FormLabel>
                                 <Select
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}
                                 >
-                                    <SelectTrigger>
+                                    <SelectTrigger className="w-full p-4 bg-gray-100 text-black border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
                                         <SelectValue placeholder="Select Adherence" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -163,7 +164,7 @@ const StepThree = ({ nextStep }: StepThreeProps) => {
                         <Button
                             type="submit"
                             disabled={isPending}
-                            className="w-24 gap-x-2"
+                            className="p-4 w-24 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all gap-x-2"
                         >
                             Next
                             {isPending ? (

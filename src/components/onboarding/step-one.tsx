@@ -60,13 +60,13 @@ const StepOne = ({ nextStep }: Props) => {
                         name="dateOfBirth"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="text-gray-200">Date of Birth</FormLabel>
+                                <FormLabel className="text-black text-lg font-semibold mb-2">Date of Birth</FormLabel>
                                 <Input
                                     {...field}
-                                    className="bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:ring-primary focus:border-primary"
+                                    className="w-full p-4 bg-gray-100 text-black placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                     placeholder="YYYY-MM-DD"
                                 />
-                                <FormMessage className="text-red-500" />
+                                <FormMessage className="text-red-500 mt-1" />
                             </FormItem>
                         )}
                     />
@@ -77,14 +77,14 @@ const StepOne = ({ nextStep }: Props) => {
                         name="weight"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="text-gray-200">Weight (kg)</FormLabel>
+                                <FormLabel className="text-black text-lg font-semibold mb-2">Weight (kg)</FormLabel>
                                 <Input
                                     {...field}
-                                    className="bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:ring-primary focus:border-primary"
+                                    className="w-full p-4 bg-gray-100 text-black placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                     placeholder="e.g., 70"
                                     type="number"
                                 />
-                                <FormMessage className="text-red-500" />
+                                <FormMessage className="text-red-500 mt-1" />
                             </FormItem>
                         )}
                     />
@@ -95,14 +95,14 @@ const StepOne = ({ nextStep }: Props) => {
                         name="height"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="text-gray-200">Height (cm)</FormLabel>
+                                <FormLabel className="text-black text-lg font-semibold mb-2">Height (cm)</FormLabel>
                                 <Input
                                     {...field}
-                                    className="bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:ring-primary focus:border-primary"
+                                    className="w-full p-4 bg-gray-100 text-black placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                     placeholder="e.g., 170"
                                     type="number"
                                 />
-                                <FormMessage className="text-red-500" />
+                                <FormMessage className="text-red-500 mt-1" />
                             </FormItem>
                         )}
                     />
@@ -113,9 +113,9 @@ const StepOne = ({ nextStep }: Props) => {
                         name="gender"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="text-gray-200">Gender</FormLabel>
+                                <FormLabel className="text-black text-lg font-semibold mb-2">Gender</FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                    <SelectTrigger className="bg-gray-800 text-white border border-gray-600 focus:ring-primary focus:border-primary">
+                                    <SelectTrigger className="w-full p-4 bg-gray-100 text-black border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
                                         <SelectValue placeholder="Select Gender" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -125,7 +125,7 @@ const StepOne = ({ nextStep }: Props) => {
                                         <SelectItem value="Prefer not to say">Prefer not to say</SelectItem>
                                     </SelectContent>
                                 </Select>
-                                <FormMessage className="text-red-500" />
+                                <FormMessage className="text-red-500 mt-1" />
                             </FormItem>
                         )}
                     />
@@ -134,13 +134,13 @@ const StepOne = ({ nextStep }: Props) => {
                     <Button
                         type="submit"
                         disabled={isPending}
-                        className="mt-6 w-full bg-primary text-white hover:bg-primary-dark transition-colors"
+                        className="mt-6 w-full p-4 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all"
                     >
                         Next
                         {isPending ? (
-                            <LoaderIcon className="animate-spin h-4 w-4" />
+                            <LoaderIcon className="animate-spin h-4 w-4 ml-2" />
                         ) : (
-                            <ArrowRightIcon className="h-4 w-4" />
+                            <ArrowRightIcon className="h-4 w-4 ml-2" />
                         )}
                     </Button>
                 </form>

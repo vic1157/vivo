@@ -10,10 +10,7 @@ import { STEPS } from '@/constants/steps'; // Import your steps from the steps.t
 import StepOne from '@/components/onboarding/step-one'; // Basic Information
 import StepTwo from '@/components/onboarding/step-two'; // Lifestyle Factors
 import StepThree from '@/components/onboarding/step-three'; // Medical History
-import StepFour from '@/components/onboarding/step-four'; // Family History
 import StepFive from '@/components/onboarding/step-five'; // Health Goals
-import StepSix from '@/components/onboarding/step-six'; // Healthcare Engagement
-import StepSeven from '@/components/onboarding/step-seven'; // Technology Use
 import StepEight from '@/components/onboarding/step-eight'; // Congratulations step
 
 // Mapping step components
@@ -21,10 +18,7 @@ const stepComponents: { [key: string]: any } = {
   "step-one": StepOne,
   "step-two": StepTwo,
   "step-three": StepThree,
-  "step-four": StepFour,
   "step-five": StepFive,
-  "step-six": StepSix,
-  "step-seven": StepSeven,
   "step-eight": StepEight,
 };
 
@@ -61,15 +55,18 @@ const OnboardingPage = () => {
           <div
             key={step.id}
             className={cn(
-              "flex flex-col items-center justify-center md:w-16 relative bg-background z-10",
-              activeStep === step.id ? "text-primary" : "text-muted-foreground"
+              "flex flex-col items-center justify-center md:w-16 relative z-10",
+              activeStep === step.id ? "text-primary" : "text-gray-400" // Non-active text color
             )}
           >
             <div
               className={cn(
-                "w-10 h-10 flex items-center justify-center rounded-full text-sm",
-                activeStep === step.id ? "bg-primary text-white" : "bg-zinc-100",
-                activeStep > step.id ? "bg-primary text-white" : ""
+                "w-10 h-10 flex items-center justify-center rounded-full text-sm transition-all duration-300 ease-in-out",
+                activeStep === step.id
+                  ? "bg-blue-600 text-white shadow-lg" // Active step color
+                  : activeStep > step.id
+                  ? "bg-blue-400 text-white shadow-md" // Completed step color
+                  : "bg-gray-300 text-gray-600" // Upcoming step color
               )}
             >
               {activeStep > step.id ? (
@@ -90,7 +87,8 @@ const OnboardingPage = () => {
             </div>
           </div>
         ))}
-        <div className="absolute inset-x-0 w-[85%] md:w-[75%] mx-auto h-0.5 bg-border top-5 translate-x-1/2"></div>
+        {/* Connector line */}
+        <div className="absolute inset-x-0 w-[85%] md:w-[75%] mx-auto h-1 bg-blue-400 top-5 translate-x-1/2"></div> {/* Changed line color */}
       </div>
 
       {/* Content area */}
