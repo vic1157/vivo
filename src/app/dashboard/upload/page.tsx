@@ -1,37 +1,66 @@
-// components/UploadPage.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation"; // Correct import for App Router
 import { FaFileUpload } from "react-icons/fa";
 import Sidebar from "@/components/dashboard/Sidebar";
-import Navbar from "@/components/dashboard/DashboardNavbar"
+import Navbar from "@/components/dashboard/DashboardNavbar";
 import Image from "next/image";
 
 const UploadPage = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
   const [isLoading, setIsLoading] = useState(false); // For analyzing/loading state
   const router = useRouter();
 
-  const handleFileChange = (event: any) => {
-    setFile(event.target.files[0]);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
   };
 
   const handleFileRemove = () => {
     setFile(null);
   };
 
-  const handleSubmit = () => {
-    if (!file) return;
-    
+  const handleSubmit = async () => {
+    if (!file || !title || !date) {
+      alert("Please fill out all fields and upload a file.");
+      return;
+    }
+
     // Set loading to true and simulate the analyzing phase
     setIsLoading(true);
 
-    // Simulate "Analyzing..." with a timeout
-    setTimeout(() => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("title", title);
+    formData.append("date", date);
+
+    try {
+      const response = await fetch("/api/dashboard/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("File upload or analysis failed:", errorData);
+        alert(`Error: ${errorData.error || "File upload or analysis failed"}`);
+      } else {
+        const result = await response.json();
+        console.log("Upload and analysis success:", result);
+
+        // Navigate to the result page after successful upload and analysis
+        router.push("/dashboard/upload/report-results");
+      }
+    } catch (error) {
+      console.error("Error during file upload:", error);
+      alert("Something went wrong during file upload.");
+    } finally {
       setIsLoading(false);
-      router.push("/dashboard/upload/report-results"); // Navigate to results page after analyzing
-    }, 3000); // Simulating 3 seconds analyzing time
+    }
   };
 
   return (
@@ -39,7 +68,6 @@ const UploadPage = () => {
       {/* Sidebar */}
       <Navbar />
       <Sidebar />
-      
 
       {/* Main Content */}
       <div className="flex-1 flex min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">
@@ -50,11 +78,12 @@ const UploadPage = () => {
               <label className="cursor-pointer flex flex-col items-center justify-center h-64 w-full bg-blue-50 rounded-lg border-dashed border-2 border-blue-300 hover:bg-blue-100 transition">
                 <FaFileUpload className="text-blue-600 text-4xl mb-4" />
                 <span className="text-lg text-blue-600 font-semibold">
-                  Upload pdf/docx
+                  Upload PDF/DOCX
                 </span>
                 <input
                   type="file"
                   className="hidden"
+                  accept=".pdf,.doc,.docx"
                   onChange={handleFileChange}
                 />
               </label>
@@ -94,6 +123,8 @@ const UploadPage = () => {
               </label>
               <input
                 type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter Report Title"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition"
               />
@@ -105,6 +136,8 @@ const UploadPage = () => {
               </label>
               <input
                 type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition"
               />
             </div>
@@ -112,9 +145,9 @@ const UploadPage = () => {
             <button
               className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition"
               onClick={handleSubmit}
-              disabled={!file} // Disable if no file is uploaded
+              disabled={!file || isLoading} // Disable if no file is uploaded or while loading
             >
-              Submit Report
+              {isLoading ? "Analyzing..." : "Submit Report"}
             </button>
           </div>
         </div>

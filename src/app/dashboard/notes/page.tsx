@@ -18,7 +18,7 @@ const NoteCard = ({ note, onClick }: { note: Note; onClick: () => void }) => {
       onClick={onClick}
       className="bg-blue-100 rounded-lg p-4 cursor-pointer shadow-md hover:shadow-lg transition-all"
     >
-      <p className="text-lg font-semibold text-violet-950">{note.subject}</p>
+      <p className="text-lg font-semibold text-black">{note.subject}</p>
       <p className="text-sm text-gray-500">{note.date}</p>
       <p className="text-sm text-black mt-2">{note.preview}</p>
     </div>
@@ -153,7 +153,7 @@ const NotesPage = () => {
       <Sidebar />
       <div className="p-6 bg-indigo-50 flex-grow">
         <div className="bg-white p-6 rounded-lg shadow-md mb-10">
-          <h2 className="text-3xl font-bold text-violet-950 mb-6">My Notes</h2>
+          <h2 className="text-3xl font-bold text-black mb-6">My Notes</h2>
           <div className="mb-6">
             <label htmlFor="note-subject" className="sr-only">
               Note Subject
@@ -164,7 +164,7 @@ const NotesPage = () => {
               value={noteSubject}
               onChange={(e) => setNoteSubject(e.target.value)}
               placeholder="Enter subject"
-              className="w-full p-3 text-xl rounded-lg border-2 mb-4"
+              className="w-full p-3 text-xl rounded-lg border-2 mb-4 text-black"
             />
             <label htmlFor="note-content" className="sr-only">
               Note Content
@@ -174,7 +174,7 @@ const NotesPage = () => {
               value={noteContent}
               onChange={(e) => setNoteContent(e.target.value)}
               placeholder="Type your note here..."
-              className="w-full p-3 text-xl rounded-lg border-2"
+              className="w-full p-3 text-xl rounded-lg border-2 text-black"
               rows={6}
             />
           </div>
@@ -188,7 +188,7 @@ const NotesPage = () => {
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-3xl font-bold text-violet-950 mb-6">Saved Notes</h2>
+          <h2 className="text-3xl font-bold text-black mb-6">Saved Notes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {notes.length > 0 ? (
               notes.map((note) => (
@@ -199,7 +199,7 @@ const NotesPage = () => {
                 />
               ))
             ) : (
-              <p>No notes available</p>
+              <p className="text-black">No notes available</p>
             )}
           </div>
         </div>
@@ -207,13 +207,13 @@ const NotesPage = () => {
         {expandedNote && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
-              <h3 className="text-2xl font-bold text-violet-950 mb-4">
+              <h3 className="text-2xl font-bold text-black mb-4">
                 <label htmlFor="expanded-subject" className="sr-only">
                   Note Subject
                 </label>
                 <input
                   id="expanded-subject"
-                  className="text-xl w-full p-2 border-2 rounded-lg"
+                  className="text-xl w-full p-2 border-2 rounded-lg text-black"
                   value={expandedNote.subject}
                   onChange={(e) =>
                     setExpandedNote({ ...expandedNote, subject: e.target.value })
@@ -226,7 +226,7 @@ const NotesPage = () => {
               </label>
               <textarea
                 id="expanded-content"
-                className="w-full p-3 border-2 rounded-lg"
+                className="w-full p-3 border-2 rounded-lg text-black"
                 value={expandedNote.content}
                 rows={8}
                 onChange={(e) =>

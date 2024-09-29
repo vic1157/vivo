@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,46 +9,80 @@ datasource db {
 }
 
 model User {
-  id              String  @id @default(cuid()) @map("_id")
-  clerkId         String? @unique
-  email           String  @unique
-  firstName       String?
-  lastName        String?
-  profileImageUrl String?
-  dateOfBirth     DateTime?
-  weight          Float?
-  height          Float?
-  gender          String?
-  image           String? // Make it optional if not always provided
-  lifestyleData   Json?
-  medicationData  Json?
-  mood            String?   // Happy, Sad, Neutral, etc.
-  sleepQuality    String?   // Good, Bad, Average, etc.
-  stressLevel     String?   // Not Stressed, Slightly, Moderately, Highly, etc.
-  happinessRating Int?      // Scale of 1-10
-  healthGoals     String[]  // Store selected health goals
-  lastPhysicalExam             DateTime?  // When was their last physical exam
-  labWorkFrequency             String?    // How often lab work is done
-  primaryCarePhysician          Boolean?   // If they have a primary care physician
-  comfortLevelWithProviders    Int?       // On a scale of 1-10
-  usesFitnessTrackingTech        Boolean?  // Do they use any fitness tracking devices or apps
-  willingToConnectHealthData     Boolean?  // Are they willing to connect health data (e.g., Apple Health)
-  comfortWithHealthTech          Int?      // Comfort level with technology for health management
-  notes     Note[]  @relation("UserNotes") // Relation to Note model
+  id                         String    @id @default(cuid()) @map("_id")
+  clerkId                    String?   @unique
+  email                      String    @unique
+  firstName                  String?
+  lastName                   String?
+  profileImageUrl            String?
+  dateOfBirth                DateTime?
+  weight                     Float?
+  height                     Float?
+  gender                     String?
+  image                      String? // Make it optional if not always provided
+  lifestyleData              Json?
+  medicationData             Json?
+  mood                       String? // Happy, Sad, Neutral, etc.
+  sleepQuality               String? // Good, Bad, Average, etc.
+  stressLevel                String? // Not Stressed, Slightly, Moderately, Highly, etc.
+  happinessRating            Int? // Scale of 1-10
+  healthGoals                String[] // Store selected health goals
+  lastPhysicalExam           DateTime? // When was their last physical exam
+  labWorkFrequency           String? // How often lab work is done
+  primaryCarePhysician       Boolean? // If they have a primary care physician
+  comfortLevelWithProviders  Int? // On a scale of 1-10
+  usesFitnessTrackingTech    Boolean? // Do they use any fitness tracking devices or apps
+  willingToConnectHealthData Boolean? // Are they willing to connect health data (e.g., Apple Health)
+  comfortWithHealthTech      Int? // Comfort level with technology for health management
+  notes                      Note[]    @relation("UserNotes") // Relation to Note model
+  reports                    Report[]  @relation("UserReports") // Relation to Report model
+  chats                      Chat[]    @relation("UserChats") // Relation to Chat model
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Note {
-  id      String   @id @default(cuid()) @map("_id")
+  id      String @id @default(cuid()) @map("_id")
   subject String
   content String
   date    String
   preview String
   userId  String
-  user    User     @relation("UserNotes", fields: [userId], references: [id]) // Inverse relation to User
+  user    User   @relation("UserNotes", fields: [userId], references: [id]) // Inverse relation to User
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Report {
+  id             String   @id @default(cuid()) @map("_id")
+  title          String
+  content        String
+  filePath       String
+  analysisResult Json // Store OpenAI analysis results
+  userId         String
+  user           User     @relation("UserReports", fields: [userId], references: [id]) // Inverse relation to User
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Chat {
+  id        String   @id @default(cuid()) @map("_id")
+  title     String
+  messages  Message[] @relation("ChatMessages")  // Relation to Message model
+  userId    String
+  user      User      @relation("UserChats", fields: [userId], references: [id])  // Relation to User model
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid()) @map("_id")
+  content   String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  chatId    String
+  chat      Chat     @relation("ChatMessages", fields: [chatId], references: [id])  // Correct relation field on Message
 }

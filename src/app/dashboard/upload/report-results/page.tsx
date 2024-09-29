@@ -1,13 +1,14 @@
-// components/ResultPage.tsx
 "use client";
 
 import React from "react";
 import Sidebar from "@/components/dashboard/Sidebar";
+import Navbar from "@/components/dashboard/DashboardNavbar";
 
 const ResultPage = () => {
   return (
     <div className="flex">
       {/* Sidebar */}
+      <Navbar />
       <Sidebar />
 
       {/* Main Content */}
@@ -18,7 +19,8 @@ const ResultPage = () => {
           </h2>
 
           <p className="text-lg text-gray-700 mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas magna id magnis habitasse justo.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+            egestas magna id magnis habitasse justo.
           </p>
 
           {/* Lab Results */}
@@ -55,7 +57,17 @@ const ResultPage = () => {
 };
 
 // Component for each lab report item
-const LabReportItem = ({ title, result, interval, suggestion }: { title: string, result: string, interval: string, suggestion: string }) => {
+const LabReportItem = ({
+  title,
+  result,
+  interval,
+  suggestion,
+}: {
+  title: string;
+  result: string;
+  interval: string;
+  suggestion: string;
+}) => {
   return (
     <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
       <h4 className="text-xl font-semibold text-gray-800 mb-2">{title}</h4>
