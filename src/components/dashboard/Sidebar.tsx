@@ -40,10 +40,10 @@ const Sidebar = () => {
           isActive={pathname === "/dashboard"}
         />
         <SidebarItem
-          href="/dashboard/lab-report"
+          href="/dashboard/upload/report-results"
           icon={<LabReportIcon className="w-8 h-8" />}
           label="Lab Report"
-          isActive={pathname === "/dashboard/lab-report"}
+          isActive={pathname === "/dashboard/upload/report-results"}
         />
         <SidebarItem
           href="/dashboard/notes"

@@ -59,12 +59,15 @@ model Report {
   id             String   @id @default(cuid()) @map("_id")
   title          String
   content        String
-  filePath       String
-  analysisResult Json // Store OpenAI analysis results
+  date           DateTime // Change this from String to DateTime
+  filePath       String     // Path of the uploaded file
+  analysisResult Json       // Store OpenAI analysis results as JSON
   userId         String
-  user           User     @relation("UserReports", fields: [userId], references: [id]) // Inverse relation to User
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  summary        String     // The summary extracted from the report (OpenAI)
+  user           User       @relation("UserReports", fields: [userId], references: [id]) // Relation to the User model
+  
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 }
 
 model Chat {

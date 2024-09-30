@@ -1,34 +1,38 @@
-from flask import Flask, request, jsonify
 import pdfplumber
 import openai
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 from dotenv import load_dotenv
-from flask_cors import CORS  # Import CORS for handling cross-origin requests
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
-
-# Enable CORS for all routes
 CORS(app)
 
-# Configure OpenAI API key
+# Set your OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Helper function to summarize text using OpenAI
-def summarize_text(pdf_text):
-    # Use the new OpenAI API method
+# Extract text from PDF
+def extract_pdf_text(file_path):
+    with pdfplumber.open(file_path) as pdf:
+        text = ""
+        for page in pdf.pages:
+            text += page.extract_text() + "\n"
+    return text
+
+# Summarize lab report using OpenAI
+def summarize_lab_report(report_text):
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are an assistant that summarizes documents."},
-            {"role": "user", "content": f"Summarize the following PDF content:\n{pdf_text}"}
+            {"role": "system", "content": "You are a medical assistant that summarizes lab reports."},
+            {"role": "user", "content": f"Here is the lab report data: {report_text}. Can you summarize the important findings and provide recommendations?"}
         ]
     )
-    return response.choices[0].message['content']
+    return response['choices'][0]['message']['content']
 
-# API endpoint to handle file uploads and analysis
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -38,21 +42,23 @@ def upload_file():
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    # Process the PDF file
     try:
-        pdf_text = ""
-        with pdfplumber.open(file) as pdf:
-            for page in pdf.pages:
-                pdf_text += page.extract_text() + "\n"
+        # Save file temporarily
+        file_path = f"/tmp/{file.filename}"
+        file.save(file_path)
 
-        # Get the summary from OpenAI
-        summary = summarize_text(pdf_text)
+        # Extract text from the PDF
+        extracted_text = extract_pdf_text(file_path)
+        
+        if not extracted_text.strip():
+            return jsonify({"error": "The PDF could not be read or is empty."}), 400
+
+        # Summarize the extracted text using OpenAI API
+        summary = summarize_lab_report(extracted_text)
 
         return jsonify({'summary': summary}), 200
     except Exception as e:
-        print(f"Error during file upload: {str(e)}")  # Log the error for debugging
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
-

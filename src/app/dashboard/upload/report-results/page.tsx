@@ -1,54 +1,102 @@
 "use client";
 
-import React from "react";
+import { useSearchParams } from "next/navigation"; // Use for extracting query params
 import Sidebar from "@/components/dashboard/Sidebar";
 import Navbar from "@/components/dashboard/DashboardNavbar";
+import { useState } from "react";
 
-const ResultPage = () => {
+// Chatbot Component
+const Chatbot = ({ summary }: { summary: string }) => {
+  const [question, setQuestion] = useState('');
+  const [response, setResponse] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!question) {
+      alert('Please enter a question.');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const res = await fetch('/api/dashboard/chatbot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ summary, question }),
+      });
+
+      const data = await res.json();
+      setResponse(data.response);
+    } catch (error) {
+      console.error('Error fetching response:', error);
+      alert('There was an error fetching the chatbot response.');
+    } finally {
+      setIsLoading(false);
+      setQuestion('');
+    }
+  };
+
   return (
-    <div className="flex">
+    <div className="bg-white shadow-lg rounded-lg p-6 mt-6">
+      <h2 className="text-xl font-semibold text-blue-600 mb-4">Ask Questions About the Summary</h2>
+      <form onSubmit={handleSubmit} className="mb-4">
+        <textarea
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Ask a question about the summary..."
+          className="w-full p-2 border border-gray-300 rounded"
+        ></textarea>
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+        >
+          {isLoading ? 'Asking...' : 'Ask'}
+        </button>
+      </form>
+      {response && (
+        <div className="bg-gray-100 p-4 rounded shadow">
+          <h3 className="font-semibold">Chatbot Response:</h3>
+          <p>{response}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const ReportResultsPage = () => {
+  const searchParams = useSearchParams();
+  const summary = searchParams.get("summary"); // Extract the summary from the URL
+
+  return (
+    <div className="flex h-screen">
       {/* Sidebar */}
-      <Navbar />
       <Sidebar />
 
-      {/* Main Content */}
-      <div className="flex-1 flex min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-10">
-        <div className="bg-white shadow-md p-10 rounded-2xl w-full max-w-3xl mx-auto">
-          <h2 className="text-center text-3xl font-semibold text-blue-600 mb-6">
-            Measles / Rubella Report
-          </h2>
+      <div className="flex-1 flex flex-col ml-64">
+        {/* Navbar */}
+        <Navbar />
 
-          <p className="text-lg text-gray-700 mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            egestas magna id magnis habitasse justo.
-          </p>
+        {/* Main content */}
+        <div className="flex-1 overflow-y-auto p-8 bg-gray-50">
+          <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-10">
+            <h2 className="text-3xl font-bold text-blue-600 mb-6">PDF Summary</h2>
 
-          {/* Lab Results */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <LabReportItem
-              title="Rubella"
-              result="10.70 Units"
-              interval="Immune >0.99"
-              suggestion="Results Suggest: Immune"
-            />
-            <LabReportItem
-              title="Measles"
-              result=">300 Au/ML"
-              interval="Immune >16.4"
-              suggestion="Results Suggest: Immune"
-            />
-            <LabReportItem
-              title="Mumps"
-              result=">300 Au/ML"
-              interval="Immune >10.9"
-              suggestion="Results Suggest: Immune"
-            />
-            <LabReportItem
-              title="Cholesterol"
-              result="200 mg/dL"
-              interval="Normal"
-              suggestion="Results Suggest: Normal"
-            />
+            {summary ? (
+              <p className="whitespace-pre-line leading-relaxed text-gray-800">
+                {summary}
+              </p>
+            ) : (
+              <p>No summary available</p>
+            )}
+
+            {/* Chatbot Integration */}
+            {summary && <Chatbot summary={summary} />}
           </div>
         </div>
       </div>
@@ -56,26 +104,4 @@ const ResultPage = () => {
   );
 };
 
-// Component for each lab report item
-const LabReportItem = ({
-  title,
-  result,
-  interval,
-  suggestion,
-}: {
-  title: string;
-  result: string;
-  interval: string;
-  suggestion: string;
-}) => {
-  return (
-    <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-      <h4 className="text-xl font-semibold text-gray-800 mb-2">{title}</h4>
-      <p className="text-lg text-gray-600">{result}</p>
-      <p className="text-sm text-gray-500">{interval}</p>
-      <p className="text-sm text-blue-600 font-semibold">{suggestion}</p>
-    </div>
-  );
-};
-
-export default ResultPage;
+export default ReportResultsPage;
