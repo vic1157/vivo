@@ -21,7 +21,7 @@ While these lab results provide an overview of a patients' current health, it do
 
 **Knowledge Empowerment**
 
-Mordern lab tests are an innovation in technology and science. With these innovations, oftentimes, patients who are reading the results may not directly understand the nuance or reasoning that leads to a finalized good/bad result. While patients should always consult with a physician regarding their lab test results, we seek to empower patients who are curious and want to explore all of their available options.
+Modern lab tests are an innovation in technology and science. With these innovations, oftentimes, patients who are reading the results may not directly understand the nuance or reasoning that leads to a finalized good/bad result. While patients should always consult with a physician regarding their lab test results, we seek to empower patients who are curious and want to explore all of their available options.
 
 For example, a patient may receieve test results that indicates that their cholesterol is a little high. Understanding the meaning of the results means that an individual also understands the difference between good/bad cholesterol, genetic family history, diet, exercise, HDL, triglycerides, LDL and other contextual information. 
 
