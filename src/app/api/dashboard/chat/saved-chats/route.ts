@@ -2,6 +2,8 @@ import { NextResponse, NextRequest } from 'next/server';
 import prisma from '@/lib/prisma'; // Ensure Prisma is imported from a single shared instance
 import { getAuth } from '@clerk/nextjs/server'; // Correct Clerk import
 
+export const dynamic = 'force-dynamic'; // Force this route to be handled dynamically
+
 export async function GET(req: NextRequest) {
   try {
     const { userId } = getAuth(req); // Extract userId from Clerk auth
@@ -37,3 +39,4 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
   }
 }
+
