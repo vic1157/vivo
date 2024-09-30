@@ -2,7 +2,7 @@
 
 Current: 
 
-Leveraging OpenAI API with integrated Apple Health data to gain insights on appropriate next steps in a patient's medical journey.
+Leveraging OpenAI API to analyze and make clinical lab results palatable to everyday people. Empowering patients to ask more insightful questions and make informed decisions about their health.
 
 ## Table of Contents
 
