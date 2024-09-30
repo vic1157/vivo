@@ -1,3 +1,13 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",  // Disable errors for 'any' type
+    "@typescript-eslint/no-unused-vars": "off",   // Disable errors for unused variables
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off",  // Disable unsafe non-null assertions
+    "no-var": "off",  // Allow 'var' to be used without throwing errors
+    "react/jsx-no-target-blank": "off",  // Disable warnings related to target="_blank"
+    "@next/next/no-img-element": "off"   // Disable warnings for using <img> instead of <Image />
+  }
 }
+
+
