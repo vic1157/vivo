@@ -3,6 +3,8 @@ import { StepSixSchema } from "@/lib/validators/step-six";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'; // Ensure this route is treated as dynamic
+
 export async function POST(req: Request) {
   const body = await req.json();
   const user = await currentUser();

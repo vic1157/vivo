@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import NewChat from "@/lib/newChat";
 
+export const dynamic = 'force-dynamic'; // Ensure this route is treated as dynamic
+
 const chatInstance = new NewChat();
 
 export async function POST(req: Request) {

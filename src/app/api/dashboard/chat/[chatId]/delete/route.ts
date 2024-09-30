@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 // import prisma from "@/lib/prisma";  // Comment out Prisma since it's not needed for the bypass
 
+export const dynamic = 'force-dynamic'; // Ensure this route is treated as dynamic
+
 export async function DELETE(req: Request, { params }: { params: { chatId: string } }) {
   const { chatId } = params;
 

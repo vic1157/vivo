@@ -4,6 +4,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const dynamic = 'force-dynamic'; // Ensure this route is treated as dynamic
+
 export async function POST(request: Request) {
     const body = await request.json();
 

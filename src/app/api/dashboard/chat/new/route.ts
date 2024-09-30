@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import  prisma  from "@/lib/prisma"; // Adjust this to your Prisma import path
 import { currentUser } from "@clerk/nextjs/server"; // Use currentUser for authentication
 
+export const dynamic = 'force-dynamic'; // Ensure this route is treated as dynamic
+
 export async function POST(req: Request) {
   const user = await currentUser(); // Fetch the current user
 
